@@ -47,3 +47,6 @@ export const setSuggestedMoves = (dispatch) => (suggestedMoves) => {
 export const setMovingPiece = (dispatch) => (movingPiece) => {
     dispatch({ type: CONSTANTS.SET_MOVING_PIECE, movingPiece });
 }
+
+
+

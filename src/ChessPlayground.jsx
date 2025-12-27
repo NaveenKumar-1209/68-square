@@ -17,6 +17,7 @@ const ChessPlayground = () => {
     movingPiece,
     setPosition,
     setIsWhiteTurn,
+    isCheckMate,
   } = useStore();
   const { calculateSuggestedMoves } = useSuggestedMove();
 
@@ -87,6 +88,7 @@ const ChessPlayground = () => {
           highlightedSquares={highlightedSquares}
           suggestedMoves={suggestedMoves}
         />
+        {isCheckMate && <div className="text-red-500 text-2xl font-bold text-center">Checkmate</div>}
       </div>
     </div>
   );

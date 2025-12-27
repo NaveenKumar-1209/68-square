@@ -1,6 +1,6 @@
 import { INITIAL_POSITION } from "../game/initialPosition";
 import { CONSTANTS } from "./constant";
-
+import { isCheckMate } from "../utils/checkMate";
 
 
 export const initialState = {
@@ -15,14 +15,16 @@ export const initialState = {
     moveCount: 0,
     moveStack: [],
     suggestedMoves: [],
-    movingPiece: null
+    movingPiece: null,
+    isCheckMate: false,
 }
 
 
 export const chessReducer = (state, action) => {
     switch (action.type) {
         case CONSTANTS.SET_POSITION:
-            return { ...state, position: action.position };
+            const isCheckMateValue = isCheckMate(action.position, state.isWhiteTurn);
+            return { ...state, position: action.position, isCheckMate: isCheckMateValue };
         case CONSTANTS.SET_SELECTED_SQUARE:
             return { ...state, selectedSquare: action.selectedSquare };
         case CONSTANTS.SET_HIGHLIGHTED_SQUARES:

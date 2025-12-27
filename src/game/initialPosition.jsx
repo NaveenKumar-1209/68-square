@@ -20,14 +20,18 @@ export const INITIAL_POSITION = [
     { type: "rook", color: "black" },
   ],
   // Rank 7 (Black pawns)
-  Array(8).fill({ type: "pawn", color: "black" }),
+  Array(8)
+    .fill(null)
+    .map(() => ({ type: "pawn", color: "black" })),
   // Ranks 6-3 (Empty)
   Array(8).fill(null),
   Array(8).fill(null),
   Array(8).fill(null),
   Array(8).fill(null),
   // Rank 2 (White pawns)
-  Array(8).fill({ type: "pawn", color: "white" }),
+  Array(8)
+    .fill(null)
+    .map(() => ({ type: "pawn", color: "white" })),
   // Rank 1 (White pieces)
   [
     { type: "rook", color: "white" },
