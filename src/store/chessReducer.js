@@ -15,6 +15,7 @@ export const initialState = {
     moveCount: 0,
     moveStack: [],
     suggestedMoves: [],
+    movingPiece: null
 }
 
 
@@ -42,6 +43,8 @@ export const chessReducer = (state, action) => {
             return { ...state, moveStack: action.moveStack };
         case CONSTANTS.SET_SUGGESTED_MOVES:
             return { ...state, suggestedMoves: action.suggestedMoves };
+        case CONSTANTS.SET_MOVING_PIECE:
+            return { ...state, movingPiece: action.movingPiece };
         default:
             return state;
     }

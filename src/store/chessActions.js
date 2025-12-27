@@ -43,3 +43,7 @@ export const setMoveStack = (dispatch) => (moveStack) => {
 export const setSuggestedMoves = (dispatch) => (suggestedMoves) => {
     dispatch({ type: CONSTANTS.SET_SUGGESTED_MOVES, suggestedMoves });
 }
+
+export const setMovingPiece = (dispatch) => (movingPiece) => {
+    dispatch({ type: CONSTANTS.SET_MOVING_PIECE, movingPiece });
+}

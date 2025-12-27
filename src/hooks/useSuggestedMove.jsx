@@ -3,9 +3,12 @@ import { getRankFile, getSquareId } from "../utils/conversion";
 import { getPawnMoves, getKnightMoves, getBishopMoves, getRookMoves, getQueenMoves, getKingMoves } from "../utils/suggestedMoves";
 //calculate suggested moves without using third party library 
 export const useSuggestedMove = () => {
-    const { position,setSuggestedMoves } = useStore();
+    const { position, setSuggestedMoves } = useStore();
     const calculateSuggestedMoves = (squareId) => {
-        if (!squareId) return;
+        if (!squareId) {
+            setSuggestedMoves([]);
+            return;
+        };
         const { rank, file } = getRankFile(squareId);
         const piece = position[rank][file];
         if (!piece) return;
@@ -13,7 +16,7 @@ export const useSuggestedMove = () => {
         const suggestedSquares = moves.map(move => getSquareId(move.rank, move.file));
         setSuggestedMoves(suggestedSquares);
     }
-    
+
     return {
         calculateSuggestedMoves: calculateSuggestedMoves
     }
@@ -40,7 +43,7 @@ const getLegalMoves = (rank, file, piece, position) => {
         case "king":
             moves.push(...getKingMoves(rank, file, piece, position));
             break;
-    
+
         default:
             break;
     }

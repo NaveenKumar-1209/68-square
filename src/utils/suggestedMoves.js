@@ -6,10 +6,22 @@ export const getPawnMoves = (rank, file, piece, position) => {
         if (rank === 1) {
             moves.push({ rank: rank + 2, file: file });
         }
+        if (position[rank + 1][file + 1]?.color === "white") {
+            moves.push({ rank: rank + 1, file: file + 1 });
+        }
+        if (position[rank + 1][file - 1]?.color === "white") {
+            moves.push({ rank: rank + 1, file: file - 1 });
+        }
         moves.push({ rank: rank + 1, file: file });
     } else {
         if (rank === 6) {
             moves.push({ rank: rank - 2, file: file });
+        }
+        if (position[rank - 1][file + 1]?.color === "black") {
+            moves.push({ rank: rank - 1, file: file + 1 });
+        }
+        if (position[rank - 1][file - 1]?.color === "black") {
+            moves.push({ rank: rank - 1, file: file - 1 });
         }
         moves.push({ rank: rank - 1, file: file });
     }
