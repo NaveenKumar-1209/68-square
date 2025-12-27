@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { getGameByPath, getAllGames } from "../../games/gameRegistry";
+import Logo from "../Logo/Logo";
 
 /**
  * Navigation Bar Component
@@ -29,8 +30,8 @@ const NavBar = () => {
             to="/"
             className="flex items-center space-x-2 text-white hover:text-blue-400 transition-colors duration-200"
           >
-            <span className="text-2xl">🎮</span>
-            <span className="font-bold text-lg">Game Center</span>
+            <Logo size={32} className="flex-shrink-0" />
+            <span className="font-bold text-lg">BoardBrew</span>
           </Link>
 
           {/* Center: Current Game Info or Navigation Links */}

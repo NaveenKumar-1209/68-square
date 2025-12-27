@@ -113,12 +113,12 @@ const Contact = () => {
               <div className="bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl border border-slate-700/50 text-center hover:border-blue-500/50 transition-all">
                 <div className="text-4xl mb-3">📧</div>
                 <h3 className="font-semibold text-white mb-2">Email</h3>
-                <p className="text-slate-300">contact@gamecenter.com</p>
+                <p className="text-slate-300">contact@boardbrew.org</p>
               </div>
               <div className="bg-slate-800/80 backdrop-blur-sm p-6 rounded-xl border border-slate-700/50 text-center hover:border-purple-500/50 transition-all">
                 <div className="text-4xl mb-3">💬</div>
                 <h3 className="font-semibold text-white mb-2">Support</h3>
-                <p className="text-slate-300">support@gamecenter.com</p>
+                <p className="text-slate-300">support@boardbrew.org</p>
               </div>
             </div>
           </div>

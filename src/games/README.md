@@ -1,6 +1,6 @@
 # Adding New Games
 
-This guide explains how to add new games to the Game Center.
+This guide explains how to add new games to BoardBrew.
 
 ## Quick Start
 

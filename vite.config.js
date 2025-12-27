@@ -4,4 +4,6 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/', // Update to '/boardbrew/' if deploying to a subdirectory
+  // For production deployment to boardbrew.org, use base: '/'
 })

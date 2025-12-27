@@ -1,10 +1,12 @@
-# ♟️ Chess Game
+# 🎮 BoardBrew
 
-A modern, interactive chess application built with React, featuring a beautiful UI and state management using React Context API with useReducer.
+A modern, interactive board game platform built with React, featuring a beautiful UI and state management using React Context API with useReducer. Play classic board games like Chess and more!
+
+**Website**: [boardbrew.org](https://boardbrew.org)
 
 ## ✨ Features
 
-- **Interactive Chess Board**: Click to select pieces and make moves
+- **Interactive Game Boards**: Click to select pieces and make moves
 - **Visual Feedback**: Highlighted squares for selected pieces and valid moves
 - **Move Validation**: Proper chess piece movement rules implemented
 - **Turn Management**: Alternating turns between white and black players
@@ -12,12 +14,15 @@ A modern, interactive chess application built with React, featuring a beautiful 
 - **State Management**: Efficient state handling with React Context API and useReducer
 - **Responsive Design**: Fully responsive layout using Tailwind CSS
 - **Component-Based Architecture**: Clean, modular code structure
-- **Chess Notation**: Standard algebraic notation (e.g., a1, e4, h8)
+- **Multi-Game Platform**: Dashboard with multiple games (Chess and more coming soon)
+- **Portfolio Page**: Professional portfolio showcasing developer skills
+- **Theme System**: Centralized theme configuration for easy customization
 
 ## 🚀 Tech Stack
 
 - **Frontend Framework**: React 19.2.0
 - **Build Tool**: Vite 7.2.4
+- **Routing**: React Router DOM 7.11.0
 - **State Management**: React Context API with useReducer
 - **Styling**: Tailwind CSS 3.4.0
 - **Language**: JavaScript (ES6+)
@@ -26,37 +31,47 @@ A modern, interactive chess application built with React, featuring a beautiful 
 ## 📁 Project Structure
 
 ```
-chess-app/
+boardbrew/
 ├── src/
+│   ├── Pages/
+│   │   ├── Dashboard.jsx          # Main landing page with games
+│   │   ├── AboutUs.jsx            # Portfolio/About page
+│   │   └── Contact.jsx             # Contact page
 │   ├── components/
-│   │   ├── Board/
-│   │   │   ├── Board.jsx          # Main chess board component
-│   │   │   └── Square.jsx         # Individual square component
-│   │   └── Pieces/
-│   │       └── Pieces.jsx         # Chess piece rendering
-│   ├── game/
-│   │   └── initialPosition.jsx   # Initial board setup and piece symbols
-│   ├── store/
-│   │   ├── store.jsx              # Context provider and store setup
-│   │   ├── chessActions.js        # Action creators for state updates
-│   │   ├── chessReducer.js        # State reducer logic
-│   │   └── constant.js            # Action type constants
-│   ├── hooks/
-│   │   └── useSuggestedMove.jsx  # Custom hook for calculating valid moves
+│   │   ├── Dashboard/
+│   │   │   └── GameCard.jsx       # Game card component
+│   │   ├── Navigation/
+│   │   │   └── NavBar.jsx          # Navigation bar
+│   │   └── Resume/
+│   │       └── Resume.jsx          # Resume component for download
+│   ├── games/
+│   │   ├── gameRegistry.js         # Game registry
+│   │   ├── README.md               # Guide for adding games
+│   │   └── chess/                  # Chess game (monorepo structure)
+│   │       ├── index.jsx            # Entry point
+│   │       ├── ChessPlayground.jsx # Main game component
+│   │       ├── components/         # Chess-specific components
+│   │       ├── store/              # Chess state management
+│   │       ├── hooks/              # Chess hooks
+│   │       ├── utils/              # Chess utilities
+│   │       └── game/               # Chess game data
+│   ├── routes/
+│   │   └── AppRoutes.jsx           # React Router routes
+│   ├── theme/
+│   │   ├── theme.js                # Centralized theme configuration
+│   │   ├── ThemeProvider.jsx       # Theme context provider
+│   │   └── README.md               # Theme documentation
 │   ├── utils/
-│   │   ├── suggestedMoves.js      # Piece movement logic (pawn, knight, bishop, rook, queen, king)
-│   │   ├── checkMate.js           # Checkmate detection logic
-│   │   └── conversion.js          # Utility functions for chess notation conversion
-│   ├── App.jsx                    # Root component with store provider
-│   ├── ChessPlayground.jsx        # Main game container and logic
-│   ├── main.jsx                   # Application entry point
-│   └── index.css                  # Global styles
-├── public/                        # Public assets
-├── index.html                     # HTML template
-├── package.json                   # Dependencies
-├── vite.config.js                 # Vite configuration
-├── tailwind.config.js             # Tailwind configuration
-└── eslint.config.js               # ESLint configuration
+│   │   └── downloadResume.js       # Resume download utilities
+│   ├── App.jsx                     # Root component
+│   ├── main.jsx                    # Application entry point
+│   └── index.css                   # Global styles
+├── public/                         # Public assets
+├── index.html                      # HTML template
+├── package.json                    # Dependencies
+├── vite.config.js                  # Vite configuration
+├── tailwind.config.js              # Tailwind configuration
+└── eslint.config.js                # ESLint configuration
 ```
 
 ## 🛠️ Installation & Setup
@@ -72,7 +87,7 @@ chess-app/
 
    ```bash
    git clone <repository-url>
-   cd chess-app
+   cd boardbrew
    ```
 
 2. **Install dependencies**
@@ -96,6 +111,7 @@ chess-app/
    ```
 
 5. **Preview production build**
+
    ```bash
    npm run preview
    ```
@@ -112,13 +128,15 @@ chess-app/
 ## 🎮 How to Play
 
 1. Launch the application in your browser
-2. White moves first (click on a white piece)
-3. Click on a chess piece to select it
-4. The selected square will be highlighted in blue
-5. Valid move squares will be highlighted in yellow
-6. Click on a highlighted square to move the piece
-7. The turn alternates between white and black
-8. Continue playing until checkmate
+2. Browse available games on the dashboard
+3. Click on a game card to start playing
+4. For Chess: White moves first (click on a white piece)
+5. Click on a chess piece to select it
+6. The selected square will be highlighted in blue
+7. Valid move squares will be highlighted in yellow
+8. Click on a highlighted square to move the piece
+9. The turn alternates between white and black
+10. Continue playing until checkmate
 
 ## 🏗️ Architecture
 
@@ -152,13 +170,24 @@ The application uses **React Context API with useReducer** for state management:
 
 ```
 App
-└── StoreProvider (Context)
-    └── ChessPlayground
-        └── Board
-            ├── Square (64 instances)
-            │   └── Piece
-            └── Suggested Moves (visual indicators)
+└── ThemeProvider
+    └── BrowserRouter
+        └── NavBar
+            └── AppRoutes
+                ├── Dashboard
+                ├── AboutUs (Portfolio)
+                ├── Contact
+                └── Games (e.g., Chess)
+                    └── ChessStoreProvider
+                        └── ChessPlayground
 ```
+
+### Routing
+
+- `/` - Dashboard (home page with all games)
+- `/about` - Portfolio/About page
+- `/contact` - Contact page
+- `/games/chess` - Chess game
 
 ### Move Generation
 
@@ -179,9 +208,10 @@ The application uses standard algebraic notation:
 - Ranks: 1-8 (bottom to top)
 - Square IDs: e.g., 'a1', 'e4', 'h8'
 
-## 🎨 Styling
+## 🎨 Styling & Theme
 
 - **Tailwind CSS**: Utility-first CSS framework
+- **Centralized Theme**: All colors, gradients, and design tokens in `src/theme/theme.js`
 - **Gradient Backgrounds**: Modern slate color scheme (slate-900, slate-800)
 - **Board Colors**: Amber theme (amber-100 for light squares, amber-800 for dark squares)
 - **Visual Feedback**:
@@ -206,13 +236,7 @@ The application uses standard algebraic notation:
 - [ ] Game replay functionality
 - [ ] Analysis mode (show best moves)
 - [ ] Opening book integration
-
-## 🐛 Known Issues
-
-- Checkmate detection is simplified (doesn't verify actual check state)
-- No validation to prevent moving into check
-- Move history state exists but is not yet implemented
-- Console.log statement in production code (store.jsx)
+- [ ] More board games (Checkers, Tic-Tac-Toe, etc.)
 
 ## 📝 License
 
@@ -221,6 +245,10 @@ This project is open source and available under the MIT License.
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
+
+## 🌐 Website
+
+Visit us at: **boardbrew.org**
 
 ---
 
