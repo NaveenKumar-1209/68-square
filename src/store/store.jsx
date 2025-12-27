@@ -1,0 +1,32 @@
+import { createContext, useContext, useReducer } from "react";
+import { chessReducer, initialState } from "./chessReducer";
+import { setPosition, setSelectedSquare, setHighlightedSquares } from "./chessActions";
+
+
+const storeContext = createContext();
+
+
+export const StoreProvider = ({ children }) => {
+    const [store, dispatch] = useReducer(chessReducer, initialState);
+
+    const actions = {
+        setPosition: setPosition(dispatch),
+        setSelectedSquare: setSelectedSquare(dispatch),
+        setHighlightedSquares: setHighlightedSquares(dispatch),
+    }
+
+    const value = {
+        ...store,
+        ...actions,
+    }
+
+    return (
+        <storeContext.Provider value={value}>
+            {children}
+        </storeContext.Provider>
+    )
+}
+
+export const useStore = () => {
+    return useContext(storeContext);
+}
