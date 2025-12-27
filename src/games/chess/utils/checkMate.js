@@ -7,13 +7,13 @@ import { getKingMoves } from "./suggestedMoves";
  * 1. The king is actually in check
  * 2. No other piece can block the attack
  * 3. No other piece can capture the attacking piece
- * 
+ *
  * @param {Array} position - The current board position (8x8 array)
  * @param {boolean} isWhiteTurn - Whether it's white's turn
  * @returns {boolean} - True if checkmate, false otherwise
  */
 export const isCheckMate = (position, isWhiteTurn) => {
-    const targetColor = isWhiteTurn ? 'white' : 'black';
+    const targetColor = isWhiteTurn ? "white" : "black";
 
     // Find the king's position on the board
     let kingRank = -1;
@@ -22,7 +22,7 @@ export const isCheckMate = (position, isWhiteTurn) => {
     for (let rank = 0; rank < 8; rank++) {
         for (let file = 0; file < 8; file++) {
             const piece = position[rank][file];
-            if (piece && piece.type === 'king' && piece.color === targetColor) {
+            if (piece && piece.type === "king" && piece.color === targetColor) {
                 kingRank = rank;
                 kingFile = file;
                 break;
@@ -37,9 +37,15 @@ export const isCheckMate = (position, isWhiteTurn) => {
     }
 
     // Get all valid moves for the king
-    const kingMoves = getKingMoves(kingRank, kingFile, { type: 'king', color: targetColor }, position);
+    const kingMoves = getKingMoves(
+        kingRank,
+        kingFile,
+        { type: "king", color: targetColor },
+        position
+    );
 
     // Simplified checkmate: if king has no valid moves
     // TODO: Add proper check detection and verify no other pieces can help
     return kingMoves.length === 0;
-}
+};
+

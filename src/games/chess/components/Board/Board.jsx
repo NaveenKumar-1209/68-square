@@ -18,8 +18,6 @@ export const Board = ({
   highlightedSquares = [],
   suggestedMoves = [],
 }) => {
-
-
   /**
    * Determine if a square is light colored
    * Chess board pattern: light squares where rank + file is even

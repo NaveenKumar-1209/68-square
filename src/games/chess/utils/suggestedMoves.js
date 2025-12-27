@@ -1,4 +1,3 @@
-
 /**
  * Get valid pawn moves
  * Pawns move forward one square (or two from starting position)
@@ -18,7 +17,7 @@ export const getPawnMoves = (rank, file, piece, position) => {
 
             // Two-square move from starting position (both squares must be empty)
             if (rank === startRank) {
-                const twoSquaresForward = rank + (2 * direction);
+                const twoSquaresForward = rank + 2 * direction;
                 if (twoSquaresForward >= 0 && twoSquaresForward <= 7) {
                     if (!position[twoSquaresForward][file]) {
                         moves.push({ rank: twoSquaresForward, file });
@@ -34,7 +33,12 @@ export const getPawnMoves = (rank, file, piece, position) => {
 
     for (const captureRank of captureRanks) {
         for (const captureFile of captureFiles) {
-            if (captureRank >= 0 && captureRank <= 7 && captureFile >= 0 && captureFile <= 7) {
+            if (
+                captureRank >= 0 &&
+                captureRank <= 7 &&
+                captureFile >= 0 &&
+                captureFile <= 7
+            ) {
                 const targetPiece = position[captureRank][captureFile];
                 if (targetPiece && targetPiece.color !== piece.color) {
                     moves.push({ rank: captureRank, file: captureFile });
@@ -44,7 +48,7 @@ export const getPawnMoves = (rank, file, piece, position) => {
     }
 
     return moves;
-}
+};
 
 /**
  * Get valid knight moves
@@ -66,7 +70,12 @@ export const getKnightMoves = (rank, file, piece, position) => {
 
     for (const move of knightMoves) {
         const { rank: targetRank, file: targetFile } = move;
-        if (targetRank >= 0 && targetRank <= 7 && targetFile >= 0 && targetFile <= 7) {
+        if (
+            targetRank >= 0 &&
+            targetRank <= 7 &&
+            targetFile >= 0 &&
+            targetFile <= 7
+        ) {
             const targetPiece = position[targetRank][targetFile];
             // Can move to empty square or capture enemy piece
             if (!targetPiece || targetPiece.color !== piece.color) {
@@ -76,7 +85,7 @@ export const getKnightMoves = (rank, file, piece, position) => {
     }
 
     return moves;
-}
+};
 
 /**
  * Get valid bishop moves
@@ -86,9 +95,9 @@ export const getKnightMoves = (rank, file, piece, position) => {
 export const getBishopMoves = (rank, file, piece, position) => {
     const moves = [];
     const directions = [
-        { rankDelta: 1, fileDelta: 1 },   // Down-right
-        { rankDelta: 1, fileDelta: -1 },  // Down-left
-        { rankDelta: -1, fileDelta: 1 },  // Up-right
+        { rankDelta: 1, fileDelta: 1 }, // Down-right
+        { rankDelta: 1, fileDelta: -1 }, // Down-left
+        { rankDelta: -1, fileDelta: 1 }, // Up-right
         { rankDelta: -1, fileDelta: -1 }, // Up-left
     ];
 
@@ -96,7 +105,12 @@ export const getBishopMoves = (rank, file, piece, position) => {
         let currentRank = rank + rankDelta;
         let currentFile = file + fileDelta;
 
-        while (currentRank >= 0 && currentRank <= 7 && currentFile >= 0 && currentFile <= 7) {
+        while (
+            currentRank >= 0 &&
+            currentRank <= 7 &&
+            currentFile >= 0 &&
+            currentFile <= 7
+        ) {
             const targetPiece = position[currentRank][currentFile];
 
             if (!targetPiece) {
@@ -118,7 +132,7 @@ export const getBishopMoves = (rank, file, piece, position) => {
     }
 
     return moves;
-}
+};
 
 /**
  * Get valid rook moves
@@ -128,9 +142,9 @@ export const getBishopMoves = (rank, file, piece, position) => {
 export const getRookMoves = (rank, file, piece, position) => {
     const moves = [];
     const directions = [
-        { rankDelta: 1, fileDelta: 0 },   // Down
+        { rankDelta: 1, fileDelta: 0 }, // Down
         { rankDelta: -1, fileDelta: 0 }, // Up
-        { rankDelta: 0, fileDelta: 1 },  // Right
+        { rankDelta: 0, fileDelta: 1 }, // Right
         { rankDelta: 0, fileDelta: -1 }, // Left
     ];
 
@@ -138,7 +152,12 @@ export const getRookMoves = (rank, file, piece, position) => {
         let currentRank = rank + rankDelta;
         let currentFile = file + fileDelta;
 
-        while (currentRank >= 0 && currentRank <= 7 && currentFile >= 0 && currentFile <= 7) {
+        while (
+            currentRank >= 0 &&
+            currentRank <= 7 &&
+            currentFile >= 0 &&
+            currentFile <= 7
+        ) {
             const targetPiece = position[currentRank][currentFile];
 
             if (!targetPiece) {
@@ -160,7 +179,7 @@ export const getRookMoves = (rank, file, piece, position) => {
     }
 
     return moves;
-}
+};
 
 /**
  * Get valid queen moves
@@ -170,21 +189,26 @@ export const getRookMoves = (rank, file, piece, position) => {
 export const getQueenMoves = (rank, file, piece, position) => {
     const moves = [];
     const directions = [
-        { rankDelta: 1, fileDelta: 1 },   // Down-right
-        { rankDelta: 1, fileDelta: -1 },  // Down-left
-        { rankDelta: -1, fileDelta: 1 },  // Up-right
+        { rankDelta: 1, fileDelta: 1 }, // Down-right
+        { rankDelta: 1, fileDelta: -1 }, // Down-left
+        { rankDelta: -1, fileDelta: 1 }, // Up-right
         { rankDelta: -1, fileDelta: -1 }, // Up-left
-        { rankDelta: 1, fileDelta: 0 },   // Down
-        { rankDelta: -1, fileDelta: 0 },  // Up
-        { rankDelta: 0, fileDelta: 1 },   // Right
-        { rankDelta: 0, fileDelta: -1 },  // Left
+        { rankDelta: 1, fileDelta: 0 }, // Down
+        { rankDelta: -1, fileDelta: 0 }, // Up
+        { rankDelta: 0, fileDelta: 1 }, // Right
+        { rankDelta: 0, fileDelta: -1 }, // Left
     ];
 
     for (const { rankDelta, fileDelta } of directions) {
         let currentRank = rank + rankDelta;
         let currentFile = file + fileDelta;
 
-        while (currentRank >= 0 && currentRank <= 7 && currentFile >= 0 && currentFile <= 7) {
+        while (
+            currentRank >= 0 &&
+            currentRank <= 7 &&
+            currentFile >= 0 &&
+            currentFile <= 7
+        ) {
             const targetPiece = position[currentRank][currentFile];
 
             if (!targetPiece) {
@@ -206,7 +230,7 @@ export const getQueenMoves = (rank, file, piece, position) => {
     }
 
     return moves;
-}
+};
 
 /**
  * Get valid king moves
@@ -229,7 +253,12 @@ export const getKingMoves = (rank, file, piece, position) => {
 
     for (const move of kingMoves) {
         const { rank: targetRank, file: targetFile } = move;
-        if (targetRank >= 0 && targetRank <= 7 && targetFile >= 0 && targetFile <= 7) {
+        if (
+            targetRank >= 0 &&
+            targetRank <= 7 &&
+            targetFile >= 0 &&
+            targetFile <= 7
+        ) {
             const targetPiece = position[targetRank][targetFile];
             // Can move to empty square or capture enemy piece
             if (!targetPiece || targetPiece.color !== piece.color) {
@@ -239,5 +268,5 @@ export const getKingMoves = (rank, file, piece, position) => {
     }
 
     return moves;
-}
+};
 

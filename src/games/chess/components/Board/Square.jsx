@@ -35,7 +35,9 @@ export const Square = ({
 
   const highlightedClasses = isHighlighted ? "bg-yellow-300 bg-opacity-50" : "";
 
-  const suggestedClasses = suggestedMoves.includes(squareId) ? "bg-yellow-300 bg-opacity-50" : "";
+  const suggestedClasses = suggestedMoves.includes(squareId)
+    ? "bg-yellow-300 bg-opacity-50"
+    : "";
 
   return (
     <div

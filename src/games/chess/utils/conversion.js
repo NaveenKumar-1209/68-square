@@ -1,5 +1,3 @@
-
-
 /**
  * Convert rank/file indices to chess notation (e.g., 'a1', 'e4')
  */
@@ -14,3 +12,4 @@ export const getRankFile = (squareId) => {
     const rank = 8 - parseInt(squareId[1]); // 0-7
     return { rank, file };
 };
+

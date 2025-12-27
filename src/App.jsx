@@ -1,19 +1,36 @@
-import ChessPlayground from "./ChessPlayground";
-import { StoreProvider } from "./store/store";
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider, useTheme } from "./theme/ThemeProvider";
+import NavBar from "./components/Navigation/NavBar";
+import AppRoutes from "./routes/AppRoutes";
 
 /**
  * Main App Component
  *
  * Architecture:
- * - Manages the chess position state at the top level
- * - Handles square selection for future move logic
- * - Provides a clean separation between UI and game logic
+ * - ThemeProvider: Provides centralized theme throughout the app
+ * - BrowserRouter: Provides routing context for React Router
+ * - NavBar: Persistent navigation bar across all routes
+ * - AppRoutes: Defines all application routes
+ * - Each game is self-contained in its own folder with its own store
  */
+const AppContent = () => {
+  const theme = useTheme();
+
+  return (
+    <div className={`min-h-screen bg-gradient-to-br ${theme.gradients.dark}`}>
+      <NavBar />
+      <AppRoutes />
+    </div>
+  );
+};
+
 function App() {
   return (
-    <StoreProvider>
-      <ChessPlayground />
-    </StoreProvider>
+    <ThemeProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
