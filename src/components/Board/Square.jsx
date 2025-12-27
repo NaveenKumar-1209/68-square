@@ -19,6 +19,7 @@ export const Square = ({
   onSquareClick,
   isSelected = false,
   isHighlighted = false,
+  suggestedMoves = [],
 }) => {
   const baseClasses = `
     w-full h-full
@@ -34,9 +35,11 @@ export const Square = ({
 
   const highlightedClasses = isHighlighted ? "bg-yellow-300 bg-opacity-50" : "";
 
+  const suggestedClasses = suggestedMoves.includes(squareId) ? "bg-yellow-300 bg-opacity-50" : "";
+
   return (
     <div
-      className={`${baseClasses} ${selectedClasses} ${highlightedClasses}`}
+      className={`${baseClasses} ${selectedClasses} ${highlightedClasses} ${suggestedClasses}`}
       onClick={() => onSquareClick?.(squareId)}
       role="gridcell"
       aria-label={`Square ${squareId}${
@@ -44,7 +47,6 @@ export const Square = ({
       }`}
     >
       <Piece piece={piece} />
-
       {/* Square coordinates label (for debugging/accessibility) */}
       {process.env.NODE_ENV === "development" && (
         <span className="absolute bottom-0 left-0 text-xs opacity-50 p-1">

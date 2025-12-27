@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Square } from "./Square";
 import { INITIAL_POSITION } from "../../game/initialPosition";
+import { getSquareId } from "../../utils/conversion";
 
 /**
  * Board Component
@@ -16,15 +16,9 @@ export const Board = ({
   onSquareClick,
   selectedSquare = null,
   highlightedSquares = [],
+  suggestedMoves = [],
 }) => {
-  /**
-   * Convert rank/file indices to chess notation (e.g., 'a1', 'e4')
-   */
-  const getSquareId = (rank, file) => {
-    const fileLetter = String.fromCharCode(97 + file); // a-h
-    const rankNumber = 8 - rank; // 1-8
-    return `${fileLetter}${rankNumber}`;
-  };
+
 
   /**
    * Determine if a square is light colored
@@ -55,6 +49,7 @@ export const Board = ({
                   onSquareClick={onSquareClick}
                   isSelected={isSelected}
                   isHighlighted={isHighlighted}
+                  suggestedMoves={suggestedMoves}
                 />
               );
             })
