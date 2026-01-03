@@ -7,15 +7,11 @@ import GameStatus from "./GameStatus";
 /**
  * Game Sidebar Component
  *
- * Displays game information and controls:
- * - Move history
- * - Captured pieces
- * - Game status
- * - Game controls (undo, redo, new game)
- *
- * Architecture:
- * - Composed of smaller specialized components
- * - Responsive layout that works on different screen sizes
+ * Enhanced with:
+ * - Modern gradient backgrounds
+ * - Better spacing and layout
+ * - Elegant card-based design
+ * - Smooth scrolling
  */
 const GameSidebar = ({
   moveHistory,
@@ -33,31 +29,39 @@ const GameSidebar = ({
   onNewGame,
 }) => {
   return (
-    <div className="w-full md:w-80 lg:w-96 bg-gray-800 text-white rounded-lg shadow-xl p-4 space-y-4 overflow-y-auto h-full">
+    <div className="w-full bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white rounded-2xl shadow-2xl p-4 space-y-4 border border-gray-700">
       {/* Game Status */}
-      <GameStatus
-        isWhiteTurn={isWhiteTurn}
-        isInCheck={isInCheck}
-        isCheckMate={isCheckMate}
-        isStalemate={isStalemate}
-        whiteTime={whiteTime}
-        blackTime={blackTime}
-      />
+      <div className="flex-shrink-0">
+        <GameStatus
+          isWhiteTurn={isWhiteTurn}
+          isInCheck={isInCheck}
+          isCheckMate={isCheckMate}
+          isStalemate={isStalemate}
+          whiteTime={whiteTime}
+          blackTime={blackTime}
+        />
+      </div>
 
       {/* Game Controls */}
-      <GameControls
-        onUndo={onUndo}
-        onRedo={onRedo}
-        onNewGame={onNewGame}
-        canUndo={currentMoveIndex > 0}
-        canRedo={currentMoveIndex < positionHistory.length - 1}
-      />
+      <div className="flex-shrink-0">
+        <GameControls
+          onUndo={onUndo}
+          onRedo={onRedo}
+          onNewGame={onNewGame}
+          canUndo={currentMoveIndex > 0}
+          canRedo={currentMoveIndex < positionHistory.length - 1}
+        />
+      </div>
 
       {/* Captured Pieces */}
-      <CapturedPieces capturedPieces={capturedPieces} />
+      <div className="flex-shrink-0">
+        <CapturedPieces capturedPieces={capturedPieces} />
+      </div>
 
       {/* Move History */}
-      <MoveHistory moveHistory={moveHistory} />
+      <div className="flex-shrink-0">
+        <MoveHistory moveHistory={moveHistory} />
+      </div>
     </div>
   );
 };

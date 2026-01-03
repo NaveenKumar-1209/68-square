@@ -17,6 +17,7 @@ import {
   setEnPassantTarget,
   setLastMove,
   setPromotionPending,
+  setGameMode,
   resetGame,
 } from "./chessActions";
 
@@ -42,6 +43,7 @@ export const ChessStoreProvider = ({ children }) => {
     setEnPassantTarget: setEnPassantTarget(dispatch),
     setLastMove: setLastMove(dispatch),
     setPromotionPending: setPromotionPending(dispatch),
+    setGameMode: setGameMode(dispatch),
     resetGame: resetGame(dispatch),
   };
 

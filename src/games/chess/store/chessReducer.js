@@ -27,6 +27,8 @@ export const initialState = {
     enPassantTarget: null, // {rank, file} of pawn that can be captured en passant
     lastMove: null, // {from: {rank, file}, to: {rank, file}}
     promotionPending: null, // {rank, file, color} when pawn needs promotion
+    gameMode: "two-player", // "two-player" or "one-player"
+    botColor: "black", // Color the bot plays in one-player mode
 };
 
 export const chessReducer = (state, action) => {
@@ -71,11 +73,24 @@ export const chessReducer = (state, action) => {
             return { ...state, lastMove: action.lastMove };
         case CONSTANTS.SET_PROMOTION_PENDING:
             return { ...state, promotionPending: action.promotionPending };
+        case CONSTANTS.SET_GAME_MODE:
+            return { ...state, gameMode: action.gameMode, botColor: action.botColor || state.botColor };
         case CONSTANTS.RESET_GAME:
             return {
                 ...initialState,
                 position: JSON.parse(JSON.stringify(INITIAL_POSITION)),
                 moveStack: [JSON.parse(JSON.stringify(INITIAL_POSITION))],
+                castlingRights: {
+                    whiteKingSide: true,
+                    whiteQueenSide: true,
+                    blackKingSide: true,
+                    blackQueenSide: true,
+                },
+                enPassantTarget: null,
+                lastMove: null,
+                promotionPending: null,
+                gameMode: state.gameMode || "two-player",
+                botColor: state.botColor || "black",
             };
         default:
             return state;

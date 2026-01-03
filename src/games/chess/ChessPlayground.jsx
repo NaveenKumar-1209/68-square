@@ -14,6 +14,8 @@ import { findKingSquare } from "./utils/kingPosition";
 import ViewBoard from "./components/ViewBoard/ViewBoard";
 import PromotionModal from "./components/PromotionModal/PromotionModal";
 import { useGameTimer } from "./hooks/useGameTimer";
+import GameModeSelector from "./components/GameModeSelector/GameModeSelector";
+import { useBotMove } from "./hooks/useBotMove";
 
 /**
  * Chess Playground Component
@@ -57,10 +59,13 @@ const ChessPlayground = () => {
     enPassantTarget,
     lastMove,
     promotionPending,
+    gameMode,
+    botColor,
     setCastlingRights,
     setEnPassantTarget,
     setLastMove,
     setPromotionPending,
+    setGameMode,
     resetGame,
   } = useChessStore();
 
@@ -141,9 +146,29 @@ const ChessPlayground = () => {
     isStalemate,
     castlingRights,
     enPassantTarget,
+    gameMode,
+    botColor,
     selectPiece,
     clearSelection,
     executeMove,
+  });
+
+  // Bot move hook - automatically makes bot moves in one-player mode
+  useBotMove({
+    gameMode,
+    botColor,
+    position,
+    isWhiteTurn,
+    isCheckMate,
+    isStalemate,
+    promotionPending,
+    castlingRights,
+    enPassantTarget,
+    executeMove,
+    setPromotionPending,
+    setPosition,
+    setIsWhiteTurn,
+    clearSelection,
   });
 
   // Find the king's square when in check or checkmate for visual highlighting
@@ -172,16 +197,24 @@ const ChessPlayground = () => {
           />
         </div>
         {/* Game Over Overlay */}
-        {isCheckMate && (
-          <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 rounded-lg">
-            <div className="bg-red-600 text-white px-8 py-6 rounded-lg shadow-2xl text-center">
-              <div className="text-4xl mb-2">🏆</div>
-              <div className="text-2xl font-bold">
-                {isWhiteTurn ? "Black Wins!" : "White Wins!"}
+        {(isCheckMate || isStalemate) && (
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 rounded-lg">
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white px-10 py-8 rounded-2xl shadow-2xl text-center border-2 border-gray-700 animate-scaleIn max-w-md mx-4">
+              <div className="text-6xl mb-4 animate-bounce">🏆</div>
+              <div className="text-3xl font-bold mb-2 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                {isCheckMate
+                  ? isWhiteTurn
+                    ? "Black Wins!"
+                    : "White Wins!"
+                  : "Stalemate!"}
               </div>
-              <div className="text-lg mt-2">Checkmate!</div>
-              <div className="text-sm mt-3 text-red-200">
-                No further moves allowed
+              <div className="text-xl mt-2 text-gray-300">
+                {isCheckMate ? "Checkmate!" : "Draw!"}
+              </div>
+              <div className="text-sm mt-4 text-gray-400">
+                {isCheckMate
+                  ? "No further moves allowed"
+                  : "No legal moves available"}
               </div>
             </div>
           </div>
@@ -226,27 +259,51 @@ const ChessPlayground = () => {
       </div> */}
 
       {/* Right: Game Sidebar */}
-      <div className="flex-shrink-0 w-full lg:w-80 h-full flex items-start justify-center p-2">
-        <GameSidebar
-          moveHistory={moveHistory}
-          capturedPieces={capturedPieces}
-          isWhiteTurn={isWhiteTurn}
-          isInCheck={isInCheck}
-          isCheckMate={isCheckMate}
-          isStalemate={isStalemate}
-          positionHistory={
-            moveStack.length > 0 ? moveStack : [INITIAL_POSITION]
-          }
-          currentMoveIndex={currentMoveIndex}
-          whiteTime={whiteTime}
-          blackTime={blackTime}
-          onUndo={handleUndo}
-          onRedo={handleRedo}
-          onNewGame={() => {
-            handleNewGame();
-            resetTimer();
-          }}
-        />
+      <div className="flex-shrink-0 w-full lg:w-80 h-full flex flex-col p-2">
+        <div className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar pr-1">
+          {/* Game Mode Selector */}
+          <div className="mb-4">
+            <GameModeSelector
+              gameMode={gameMode}
+              botColor={botColor}
+              onModeChange={(mode) => {
+                setGameMode(mode, botColor);
+                if (mode === "two-player") {
+                  // Reset game when switching modes
+                  handleNewGame();
+                  resetTimer();
+                }
+              }}
+              onBotColorChange={(color) => {
+                setGameMode(gameMode, color);
+                // Reset game when changing bot color
+                handleNewGame();
+                resetTimer();
+              }}
+            />
+          </div>
+
+          <GameSidebar
+            moveHistory={moveHistory}
+            capturedPieces={capturedPieces}
+            isWhiteTurn={isWhiteTurn}
+            isInCheck={isInCheck}
+            isCheckMate={isCheckMate}
+            isStalemate={isStalemate}
+            positionHistory={
+              moveStack.length > 0 ? moveStack : [INITIAL_POSITION]
+            }
+            currentMoveIndex={currentMoveIndex}
+            whiteTime={whiteTime}
+            blackTime={blackTime}
+            onUndo={handleUndo}
+            onRedo={handleRedo}
+            onNewGame={() => {
+              handleNewGame();
+              resetTimer();
+            }}
+          />
+        </div>
       </div>
     </div>
   );

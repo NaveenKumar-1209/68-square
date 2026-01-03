@@ -20,6 +20,8 @@ export const useSquareClickHandler = ({
     isStalemate,
     castlingRights,
     enPassantTarget,
+    gameMode,
+    botColor,
     selectPiece,
     clearSelection,
     executeMove,
@@ -29,6 +31,23 @@ export const useSquareClickHandler = ({
         // Don't allow moves if game is over
         if (isCheckMate || isStalemate) {
             return;
+        }
+
+        // In one-player mode, don't allow human to move bot's pieces
+        if (gameMode === "one-player") {
+            const { rank, file } = getRankFile(squareId);
+            const clickedPiece = position[rank][file];
+            const isBotTurn = (isWhiteTurn && botColor === "white") || (!isWhiteTurn && botColor === "black");
+
+            // If it's bot's turn, don't allow any moves
+            if (isBotTurn) {
+                return;
+            }
+
+            // If clicking on bot's piece, don't allow selection
+            if (clickedPiece && clickedPiece.color === botColor) {
+                return;
+            }
         }
 
         const { rank, file } = getRankFile(squareId);

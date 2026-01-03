@@ -90,6 +90,10 @@ export const setPromotionPending = (dispatch) => (promotionPending) => {
     dispatch({ type: CONSTANTS.SET_PROMOTION_PENDING, promotionPending });
 };
 
+export const setGameMode = (dispatch) => (gameMode, botColor = "black") => {
+    dispatch({ type: CONSTANTS.SET_GAME_MODE, gameMode, botColor });
+};
+
 export const resetGame = (dispatch) => () => {
     dispatch({ type: CONSTANTS.RESET_GAME });
 };
