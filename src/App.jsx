@@ -17,9 +17,13 @@ const AppContent = () => {
   const theme = useTheme();
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${theme.gradients.dark}`}>
+    <div
+      className={`h-screen overflow-hidden bg-gradient-to-br ${theme.gradients.dark}`}
+    >
       <NavBar />
-      <AppRoutes />
+      <div className="h-[calc(100vh-4rem)] overflow-hidden">
+        <AppRoutes />
+      </div>
     </div>
   );
 };

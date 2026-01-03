@@ -27,7 +27,7 @@ export const Board = ({
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-4">
+    <div className="w-full h-full mx-auto p-4">
       <div className="bg-amber-900 p-2 rounded-lg shadow-2xl">
         {/* Board grid container */}
         <div className="grid grid-cols-8 aspect-square">

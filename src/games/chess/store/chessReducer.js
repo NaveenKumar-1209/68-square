@@ -1,6 +1,5 @@
 import { INITIAL_POSITION } from "../game/initialPosition";
 import { CONSTANTS } from "./constant";
-import { isCheckMate } from "../utils/checkMate";
 
 export const initialState = {
     position: INITIAL_POSITION,
@@ -16,13 +15,15 @@ export const initialState = {
     suggestedMoves: [],
     movingPiece: null,
     isCheckMate: false,
+    isInCheck: false,
+    isStalemate: false,
+    capturedPieces: { white: [], black: [] },
 };
 
 export const chessReducer = (state, action) => {
     switch (action.type) {
         case CONSTANTS.SET_POSITION:
-            const isCheckMateValue = isCheckMate(action.position, state.isWhiteTurn);
-            return { ...state, position: action.position, isCheckMate: isCheckMateValue };
+            return { ...state, position: action.position };
         case CONSTANTS.SET_SELECTED_SQUARE:
             return { ...state, selectedSquare: action.selectedSquare };
         case CONSTANTS.SET_HIGHLIGHTED_SQUARES:
@@ -40,11 +41,25 @@ export const chessReducer = (state, action) => {
         case CONSTANTS.SET_MOVE_COUNT:
             return { ...state, moveCount: action.moveCount };
         case CONSTANTS.SET_MOVE_STACK:
-            return { ...state, moveStack: action.moveStack };
+            return { ...state, moveStack: action.moveStack, positionHistory: action.moveStack };
         case CONSTANTS.SET_SUGGESTED_MOVES:
             return { ...state, suggestedMoves: action.suggestedMoves };
         case CONSTANTS.SET_MOVING_PIECE:
             return { ...state, movingPiece: action.movingPiece };
+        case CONSTANTS.SET_IS_CHECKMATE:
+            return { ...state, isCheckMate: action.isCheckMate };
+        case CONSTANTS.SET_IS_IN_CHECK:
+            return { ...state, isInCheck: action.isInCheck };
+        case CONSTANTS.SET_IS_STALEMATE:
+            return { ...state, isStalemate: action.isStalemate };
+        case CONSTANTS.SET_CAPTURED_PIECES:
+            return { ...state, capturedPieces: action.capturedPieces };
+        case CONSTANTS.RESET_GAME:
+            return {
+                ...initialState,
+                position: JSON.parse(JSON.stringify(INITIAL_POSITION)),
+                moveStack: [JSON.parse(JSON.stringify(INITIAL_POSITION))],
+            };
         default:
             return state;
     }

@@ -7,6 +7,13 @@ import {
   setSuggestedMoves,
   setMovingPiece,
   setIsWhiteTurn,
+  setIsCheckMate,
+  setIsInCheck,
+  setIsStalemate,
+  setCapturedPieces,
+  setMoveHistory,
+  setMoveStack,
+  resetGame,
 } from "./chessActions";
 
 const chessStoreContext = createContext();
@@ -21,6 +28,13 @@ export const ChessStoreProvider = ({ children }) => {
     setSuggestedMoves: setSuggestedMoves(dispatch),
     setMovingPiece: setMovingPiece(dispatch),
     setIsWhiteTurn: setIsWhiteTurn(dispatch),
+    setIsCheckMate: setIsCheckMate(dispatch),
+    setIsInCheck: setIsInCheck(dispatch),
+    setIsStalemate: setIsStalemate(dispatch),
+    setCapturedPieces: setCapturedPieces(dispatch),
+    setMoveHistory: setMoveHistory(dispatch),
+    setMoveStack: setMoveStack(dispatch),
+    resetGame: resetGame(dispatch),
   };
 
   const value = {

@@ -43,11 +43,38 @@ export const setMoveStack = (dispatch) => (moveStack) => {
     dispatch({ type: CONSTANTS.SET_MOVE_STACK, moveStack });
 };
 
+// Helper to update position history (for undo/redo)
+export const addPositionToHistory = (dispatch, getState) => (position) => {
+    const currentHistory = getState().positionHistory || [];
+    const newHistory = [...currentHistory, JSON.parse(JSON.stringify(position))];
+    dispatch({ type: CONSTANTS.SET_MOVE_STACK, moveStack: newHistory });
+};
+
 export const setSuggestedMoves = (dispatch) => (suggestedMoves) => {
     dispatch({ type: CONSTANTS.SET_SUGGESTED_MOVES, suggestedMoves });
 };
 
 export const setMovingPiece = (dispatch) => (movingPiece) => {
     dispatch({ type: CONSTANTS.SET_MOVING_PIECE, movingPiece });
+};
+
+export const setIsCheckMate = (dispatch) => (isCheckMate) => {
+    dispatch({ type: CONSTANTS.SET_IS_CHECKMATE, isCheckMate });
+};
+
+export const setIsInCheck = (dispatch) => (isInCheck) => {
+    dispatch({ type: CONSTANTS.SET_IS_IN_CHECK, isInCheck });
+};
+
+export const setIsStalemate = (dispatch) => (isStalemate) => {
+    dispatch({ type: CONSTANTS.SET_IS_STALEMATE, isStalemate });
+};
+
+export const setCapturedPieces = (dispatch) => (capturedPieces) => {
+    dispatch({ type: CONSTANTS.SET_CAPTURED_PIECES, capturedPieces });
+};
+
+export const resetGame = (dispatch) => () => {
+    dispatch({ type: CONSTANTS.RESET_GAME });
 };
 
