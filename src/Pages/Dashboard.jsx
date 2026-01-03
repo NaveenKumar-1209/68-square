@@ -18,7 +18,12 @@ const Dashboard = () => {
   const theme = useTheme();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div
+      className="min-h-screen"
+      style={{
+        background: `var(--sidebar-bg, linear-gradient(to bottom right, #0f172a, #1e293b, #0f172a))`,
+      }}
+    >
       {/* Hero Section */}
       <div
         className={`relative overflow-hidden bg-gradient-to-br ${theme.gradients.hero}`}

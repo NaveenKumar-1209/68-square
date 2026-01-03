@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { getGameByPath, getAllGames } from "../../games/gameRegistry";
 import Logo from "../Logo/Logo";
+import ThemeSelector from "../ThemeSelector/ThemeSelector";
 
 /**
  * Navigation Bar Component
@@ -28,7 +29,16 @@ const NavBar = () => {
           {/* Left: Logo/Home */}
           <Link
             to="/"
-            className="flex items-center space-x-2 text-white hover:text-blue-400 transition-colors duration-200"
+            className="flex items-center space-x-2 transition-colors duration-200"
+            style={{
+              color: `var(--sidebar-text-primary, #f1f5f9)`,
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.color = `var(--accent-primary, #3b82f6)`;
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.color = `var(--sidebar-text-primary, #f1f5f9)`;
+            }}
           >
             <Logo size={32} className="flex-shrink-0" />
             <span className="font-bold text-lg">BoardBrew</span>
@@ -46,80 +56,118 @@ const NavBar = () => {
             <div className="hidden md:flex items-center space-x-6">
               <Link
                 to="/"
-                className={`px-3 py-2 rounded-lg transition-colors duration-200 ${
-                  isDashboard
-                    ? "text-blue-400 font-semibold"
-                    : "text-slate-300 hover:text-white"
-                }`}
+                className="px-3 py-2 rounded-lg transition-colors duration-200 font-semibold"
+                style={{
+                  color: isDashboard
+                    ? `var(--accent-primary, #3b82f6)`
+                    : `var(--sidebar-text-secondary, #cbd5e1)`,
+                }}
+                onMouseEnter={(e) => {
+                  if (!isDashboard) {
+                    e.target.style.color = `var(--sidebar-text-primary, #f1f5f9)`;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isDashboard) {
+                    e.target.style.color = `var(--sidebar-text-secondary, #cbd5e1)`;
+                  }
+                }}
               >
                 Home
               </Link>
               <Link
                 to="/about"
-                className={`px-3 py-2 rounded-lg transition-colors duration-200 ${
-                  isAboutUs
-                    ? "text-blue-400 font-semibold"
-                    : "text-slate-300 hover:text-white"
-                }`}
+                className="px-3 py-2 rounded-lg transition-colors duration-200 font-semibold"
+                style={{
+                  color: isAboutUs
+                    ? `var(--accent-primary, #3b82f6)`
+                    : `var(--sidebar-text-secondary, #cbd5e1)`,
+                }}
+                onMouseEnter={(e) => {
+                  if (!isAboutUs) {
+                    e.target.style.color = `var(--sidebar-text-primary, #f1f5f9)`;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isAboutUs) {
+                    e.target.style.color = `var(--sidebar-text-secondary, #cbd5e1)`;
+                  }
+                }}
               >
                 About Us
               </Link>
               <Link
                 to="/contact"
-                className={`px-3 py-2 rounded-lg transition-colors duration-200 ${
-                  isContact
-                    ? "text-blue-400 font-semibold"
-                    : "text-slate-300 hover:text-white"
-                }`}
+                className="px-3 py-2 rounded-lg transition-colors duration-200 font-semibold"
+                style={{
+                  color: isContact
+                    ? `var(--accent-primary, #3b82f6)`
+                    : `var(--sidebar-text-secondary, #cbd5e1)`,
+                }}
+                onMouseEnter={(e) => {
+                  if (!isContact) {
+                    e.target.style.color = `var(--sidebar-text-primary, #f1f5f9)`;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isContact) {
+                    e.target.style.color = `var(--sidebar-text-secondary, #cbd5e1)`;
+                  }
+                }}
               >
                 Contact
               </Link>
             </div>
           )}
 
-          {/* Right: Back Button (when in a game) or Navigation (on other pages) */}
-          {isGameActive ? (
-            <Link
-              to="/"
-              className="
-                px-4 py-2
-                bg-slate-700
-                hover:bg-slate-600
-                text-white
-                rounded-lg
-                transition-colors
-                duration-200
-                font-medium
-                flex items-center space-x-2
-              "
-            >
-              <span>←</span>
-              <span>Back to Games</span>
-            </Link>
-          ) : (
-            <div className="flex md:hidden items-center space-x-4">
+          {/* Right: Theme Selector + Back Button (when in a game) or Navigation (on other pages) */}
+          <div className="flex items-center gap-3">
+            {/* Theme Selector - Always visible */}
+            <ThemeSelector />
+
+            {isGameActive ? (
               <Link
-                to="/about"
-                className={`px-3 py-2 rounded-lg transition-colors duration-200 ${
-                  isAboutUs
-                    ? "text-blue-400 font-semibold"
-                    : "text-slate-300 hover:text-white"
-                }`}
+                to="/"
+                className="
+                  px-4 py-2
+                  bg-slate-700
+                  hover:bg-slate-600
+                  text-white
+                  rounded-lg
+                  transition-colors
+                  duration-200
+                  font-medium
+                  flex items-center space-x-2
+                "
               >
-                About
+                <span>←</span>
+                <span className="hidden sm:inline">Back to Games</span>
               </Link>
-              <Link
-                to="/contact"
-                className={`px-3 py-2 rounded-lg transition-colors duration-200 ${
-                  isContact
-                    ? "text-blue-400 font-semibold"
-                    : "text-slate-300 hover:text-white"
-                }`}
-              >
-                Contact
-              </Link>
-            </div>
-          )}
+            ) : (
+              <div className="flex md:hidden items-center space-x-4">
+                <Link
+                  to="/about"
+                  className={`px-3 py-2 rounded-lg transition-colors duration-200 ${
+                    isAboutUs
+                      ? "text-blue-400 font-semibold"
+                      : "text-slate-300 hover:text-white"
+                  }`}
+                >
+                  About
+                </Link>
+                <Link
+                  to="/contact"
+                  className={`px-3 py-2 rounded-lg transition-colors duration-200 ${
+                    isContact
+                      ? "text-blue-400 font-semibold"
+                      : "text-slate-300 hover:text-white"
+                  }`}
+                >
+                  Contact
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

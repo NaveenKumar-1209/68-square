@@ -17,7 +17,12 @@ const AppContent = () => {
   const theme = useTheme();
 
   return (
-    <div className={`h-screen bg-gradient-to-br ${theme.gradients.dark}`}>
+    <div
+      className="h-screen"
+      style={{
+        background: `var(--sidebar-bg, ${theme.gradients.dark})`,
+      }}
+    >
       <NavBar />
       <div className="h-[calc(100vh-4rem)]">
         <AppRoutes />

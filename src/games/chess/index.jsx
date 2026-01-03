@@ -7,6 +7,7 @@ import ChessPlayground from "./ChessPlayground";
  *
  * Architecture:
  * - Each game is self-contained with its own store
+ * - Theme is managed globally by App-level ThemeProvider
  * - This component is used by React Router
  */
 const ChessGame = () => {
