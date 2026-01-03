@@ -18,6 +18,7 @@ export const Board = ({
   highlightedSquares = [],
   suggestedMoves = [],
   kingInCheckSquare = null,
+  lastMove = null,
 }) => {
   /**
    * Determine if a square is light colored
@@ -39,6 +40,15 @@ export const Board = ({
               const isSelected = selectedSquare === squareId;
               const isHighlighted = highlightedSquares.includes(squareId);
               const isKingInCheck = kingInCheckSquare === squareId;
+              const isLastMoveFrom =
+                lastMove &&
+                lastMove.from.rank === rankIndex &&
+                lastMove.from.file === fileIndex;
+              const isLastMoveTo =
+                lastMove &&
+                lastMove.to.rank === rankIndex &&
+                lastMove.to.file === fileIndex;
+              const isLastMove = isLastMoveFrom || isLastMoveTo;
 
               return (
                 <Square
@@ -51,6 +61,7 @@ export const Board = ({
                   isHighlighted={isHighlighted}
                   suggestedMoves={suggestedMoves}
                   isKingInCheck={isKingInCheck}
+                  isLastMove={isLastMove}
                 />
               );
             })

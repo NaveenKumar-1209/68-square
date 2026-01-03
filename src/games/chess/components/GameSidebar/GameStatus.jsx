@@ -8,8 +8,16 @@ import React from "react";
  * - Check indicator
  * - Checkmate indicator
  * - Stalemate indicator
+ * - Game timer
  */
-const GameStatus = ({ isWhiteTurn, isInCheck, isCheckMate, isStalemate }) => {
+const GameStatus = ({
+  isWhiteTurn,
+  isInCheck,
+  isCheckMate,
+  isStalemate,
+  whiteTime,
+  blackTime,
+}) => {
   return (
     <div className="bg-gray-700 rounded-lg p-4">
       <h3 className="text-lg font-bold mb-3 text-center">Game Status</h3>
@@ -25,6 +33,32 @@ const GameStatus = ({ isWhiteTurn, isInCheck, isCheckMate, isStalemate }) => {
           {isWhiteTurn ? "White" : "Black"}
         </span>
       </div>
+
+      {/* Game Timer */}
+      {(whiteTime || blackTime) && (
+        <div className="mb-3 space-y-1">
+          <div
+            className={`flex justify-between items-center px-2 py-1 rounded ${
+              isWhiteTurn ? "bg-blue-600" : "bg-gray-600"
+            }`}
+          >
+            <span className="text-white font-semibold">White</span>
+            <span className="text-white font-mono font-bold">
+              {whiteTime || "10:00"}
+            </span>
+          </div>
+          <div
+            className={`flex justify-between items-center px-2 py-1 rounded ${
+              !isWhiteTurn ? "bg-blue-600" : "bg-gray-600"
+            }`}
+          >
+            <span className="text-gray-300 font-semibold">Black</span>
+            <span className="text-gray-300 font-mono font-bold">
+              {blackTime || "10:00"}
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Status Messages */}
       <div className="space-y-2">

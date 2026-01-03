@@ -26,6 +26,8 @@ const GameSidebar = ({
   isStalemate,
   positionHistory,
   currentMoveIndex,
+  whiteTime,
+  blackTime,
   onUndo,
   onRedo,
   onNewGame,
@@ -38,6 +40,8 @@ const GameSidebar = ({
         isInCheck={isInCheck}
         isCheckMate={isCheckMate}
         isStalemate={isStalemate}
+        whiteTime={whiteTime}
+        blackTime={blackTime}
       />
 
       {/* Game Controls */}

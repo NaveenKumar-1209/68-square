@@ -1,4 +1,5 @@
 import { getRankFile } from "../utils/conversion";
+import { useSpecialMoveDetection } from "./useSpecialMoveDetection";
 
 /**
  * Custom hook for handling square click events
@@ -6,6 +7,7 @@ import { getRankFile } from "../utils/conversion";
  * Architecture:
  * - Centralizes square click logic
  * - Handles piece selection and movement
+ * - Detects special moves (castling, en passant)
  * - Separates interaction logic from component
  */
 export const useSquareClickHandler = ({
@@ -16,10 +18,13 @@ export const useSquareClickHandler = ({
     suggestedMoves,
     isCheckMate,
     isStalemate,
+    castlingRights,
+    enPassantTarget,
     selectPiece,
     clearSelection,
     executeMove,
 }) => {
+    const { detectSpecialMove } = useSpecialMoveDetection();
     const handleSquareClick = (squareId) => {
         // Don't allow moves if game is over
         if (isCheckMate || isStalemate) {
@@ -35,7 +40,18 @@ export const useSquareClickHandler = ({
             suggestedMoves?.includes(squareId) &&
             clickedPiece?.color !== movingPiece.color
         ) {
-            executeMove(squareId, rank, file);
+            // Detect special moves (castling, en passant)
+            const specialMove = detectSpecialMove(
+                position,
+                movingPiece,
+                movingPiece.rank,
+                movingPiece.file,
+                rank,
+                file,
+                castlingRights,
+                enPassantTarget
+            );
+            executeMove(squareId, rank, file, specialMove);
             return;
         }
 

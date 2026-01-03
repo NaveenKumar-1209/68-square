@@ -21,6 +21,7 @@ export const Square = ({
   isHighlighted = false,
   suggestedMoves = [],
   isKingInCheck = false,
+  isLastMove = false,
 }) => {
   const baseClasses = `
     w-full h-full
@@ -44,9 +45,14 @@ export const Square = ({
     ? "bg-red-500 bg-opacity-70 ring-4 ring-red-600 ring-inset animate-pulse"
     : "";
 
+  const lastMoveClasses =
+    isLastMove && !isKingInCheck
+      ? "bg-blue-400 bg-opacity-40 ring-2 ring-blue-500"
+      : "";
+
   return (
     <div
-      className={`${baseClasses} ${selectedClasses} ${highlightedClasses} ${suggestedClasses} ${checkClasses}`}
+      className={`${baseClasses} ${selectedClasses} ${highlightedClasses} ${suggestedClasses} ${checkClasses} ${lastMoveClasses}`}
       onClick={() => onSquareClick?.(squareId)}
       role="gridcell"
       aria-label={`Square ${squareId}${

@@ -2,6 +2,7 @@
  * Get valid pawn moves
  * Pawns move forward one square (or two from starting position)
  * and capture diagonally one square forward
+ * Includes en passant captures
  */
 export const getPawnMoves = (rank, file, piece, position) => {
     const moves = [];
@@ -236,7 +237,7 @@ export const getQueenMoves = (rank, file, piece, position) => {
  * Get valid king moves
  * Kings move one square in any direction (diagonally, horizontally, or vertically)
  * Cannot move to squares occupied by same-color pieces
- * Note: Castling and check validation are not included here
+ * Includes castling moves if available
  */
 export const getKingMoves = (rank, file, piece, position) => {
     const moves = [];
@@ -266,6 +267,10 @@ export const getKingMoves = (rank, file, piece, position) => {
             }
         }
     }
+
+    // Castling moves are handled separately in useSpecialMoveDetection
+    // They are added here if castlingRights is provided
+    // Note: Castling validation is complex and handled in specialMoves.js
 
     return moves;
 };

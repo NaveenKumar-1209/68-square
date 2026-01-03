@@ -13,6 +13,10 @@ import {
   setCapturedPieces,
   setMoveHistory,
   setMoveStack,
+  setCastlingRights,
+  setEnPassantTarget,
+  setLastMove,
+  setPromotionPending,
   resetGame,
 } from "./chessActions";
 
@@ -34,6 +38,10 @@ export const ChessStoreProvider = ({ children }) => {
     setCapturedPieces: setCapturedPieces(dispatch),
     setMoveHistory: setMoveHistory(dispatch),
     setMoveStack: setMoveStack(dispatch),
+    setCastlingRights: setCastlingRights(dispatch),
+    setEnPassantTarget: setEnPassantTarget(dispatch),
+    setLastMove: setLastMove(dispatch),
+    setPromotionPending: setPromotionPending(dispatch),
     resetGame: resetGame(dispatch),
   };
 

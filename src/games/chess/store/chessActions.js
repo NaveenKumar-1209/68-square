@@ -74,6 +74,22 @@ export const setCapturedPieces = (dispatch) => (capturedPieces) => {
     dispatch({ type: CONSTANTS.SET_CAPTURED_PIECES, capturedPieces });
 };
 
+export const setCastlingRights = (dispatch) => (castlingRights) => {
+    dispatch({ type: CONSTANTS.SET_CASTLING_RIGHTS, castlingRights });
+};
+
+export const setEnPassantTarget = (dispatch) => (enPassantTarget) => {
+    dispatch({ type: CONSTANTS.SET_EN_PASSANT_TARGET, enPassantTarget });
+};
+
+export const setLastMove = (dispatch) => (lastMove) => {
+    dispatch({ type: CONSTANTS.SET_LAST_MOVE, lastMove });
+};
+
+export const setPromotionPending = (dispatch) => (promotionPending) => {
+    dispatch({ type: CONSTANTS.SET_PROMOTION_PENDING, promotionPending });
+};
+
 export const resetGame = (dispatch) => () => {
     dispatch({ type: CONSTANTS.RESET_GAME });
 };

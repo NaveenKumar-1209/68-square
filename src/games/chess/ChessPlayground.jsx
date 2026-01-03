@@ -12,6 +12,8 @@ import { useSquareClickHandler } from "./hooks/useSquareClickHandler";
 import { INITIAL_POSITION } from "./game/initialPosition";
 import { findKingSquare } from "./utils/kingPosition";
 import ViewBoard from "./components/ViewBoard/ViewBoard";
+import PromotionModal from "./components/PromotionModal/PromotionModal";
+import { useGameTimer } from "./hooks/useGameTimer";
 
 /**
  * Chess Playground Component
@@ -51,11 +53,27 @@ const ChessPlayground = () => {
     moveHistory,
     setMoveStack,
     moveStack,
+    castlingRights,
+    enPassantTarget,
+    lastMove,
+    promotionPending,
+    setCastlingRights,
+    setEnPassantTarget,
+    setLastMove,
+    setPromotionPending,
     resetGame,
   } = useChessStore();
 
   // Custom hooks
   const { calculateSuggestedMoves } = useSuggestedMove();
+
+  // Game timer
+  const { whiteTime, blackTime, resetTimer } = useGameTimer(
+    isWhiteTurn,
+    isCheckMate,
+    isStalemate,
+    true
+  );
 
   const { isUndoingRef } = usePositionHistory(
     position,
@@ -84,11 +102,17 @@ const ChessPlayground = () => {
     isWhiteTurn,
     capturedPieces,
     moveHistory,
+    castlingRights,
+    enPassantTarget,
     setPosition,
     setIsWhiteTurn,
     setCapturedPieces,
     setMoveHistory,
     setIsCheckMate,
+    setCastlingRights,
+    setEnPassantTarget,
+    setLastMove,
+    setPromotionPending,
     clearSelection,
   });
 
@@ -115,6 +139,8 @@ const ChessPlayground = () => {
     suggestedMoves,
     isCheckMate,
     isStalemate,
+    castlingRights,
+    enPassantTarget,
     selectPiece,
     clearSelection,
     executeMove,
@@ -142,6 +168,7 @@ const ChessPlayground = () => {
             highlightedSquares={highlightedSquares}
             suggestedMoves={suggestedMoves}
             kingInCheckSquare={kingInCheckSquare}
+            lastMove={lastMove}
           />
         </div>
         {/* Game Over Overlay */}
@@ -160,6 +187,25 @@ const ChessPlayground = () => {
           </div>
         )}
       </div>
+
+      {/* Promotion Modal */}
+      {promotionPending && (
+        <PromotionModal
+          color={promotionPending.color}
+          onSelect={(pieceType) => {
+            const { rank, file } = promotionPending;
+            const newBoard = position.map((row) => [...row]);
+            newBoard[rank][file] = {
+              type: pieceType,
+              color: promotionPending.color,
+            };
+            setPosition(newBoard);
+            setPromotionPending(null);
+            setIsWhiteTurn(!isWhiteTurn);
+            clearSelection();
+          }}
+        />
+      )}
 
       {/* Center: View Board Section */}
       {/* <div className="h-full flex flex-1 w-full items-center justify-center p-2">
@@ -192,9 +238,14 @@ const ChessPlayground = () => {
             moveStack.length > 0 ? moveStack : [INITIAL_POSITION]
           }
           currentMoveIndex={currentMoveIndex}
+          whiteTime={whiteTime}
+          blackTime={blackTime}
           onUndo={handleUndo}
           onRedo={handleRedo}
-          onNewGame={handleNewGame}
+          onNewGame={() => {
+            handleNewGame();
+            resetTimer();
+          }}
         />
       </div>
     </div>

@@ -18,6 +18,15 @@ export const initialState = {
     isInCheck: false,
     isStalemate: false,
     capturedPieces: { white: [], black: [] },
+    castlingRights: {
+        whiteKingSide: true,
+        whiteQueenSide: true,
+        blackKingSide: true,
+        blackQueenSide: true,
+    },
+    enPassantTarget: null, // {rank, file} of pawn that can be captured en passant
+    lastMove: null, // {from: {rank, file}, to: {rank, file}}
+    promotionPending: null, // {rank, file, color} when pawn needs promotion
 };
 
 export const chessReducer = (state, action) => {
@@ -54,6 +63,14 @@ export const chessReducer = (state, action) => {
             return { ...state, isStalemate: action.isStalemate };
         case CONSTANTS.SET_CAPTURED_PIECES:
             return { ...state, capturedPieces: action.capturedPieces };
+        case CONSTANTS.SET_CASTLING_RIGHTS:
+            return { ...state, castlingRights: action.castlingRights };
+        case CONSTANTS.SET_EN_PASSANT_TARGET:
+            return { ...state, enPassantTarget: action.enPassantTarget };
+        case CONSTANTS.SET_LAST_MOVE:
+            return { ...state, lastMove: action.lastMove };
+        case CONSTANTS.SET_PROMOTION_PENDING:
+            return { ...state, promotionPending: action.promotionPending };
         case CONSTANTS.RESET_GAME:
             return {
                 ...initialState,
