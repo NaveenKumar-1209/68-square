@@ -23,14 +23,14 @@ const CapturedPieces = ({ capturedPieces }) => {
   };
 
   return (
-    <div 
+    <div
       className="chess-card rounded-xl p-4 shadow-lg border"
       style={{
         background: `var(--card-bg)`,
         borderColor: `var(--card-border)`,
       }}
     >
-      <h3 
+      <h3
         className="text-xl font-bold mb-4 text-center"
         style={{ color: `var(--accent-primary)` }}
       >
@@ -41,14 +41,14 @@ const CapturedPieces = ({ capturedPieces }) => {
         {/* White Captured Pieces */}
         <div>
           <div className="flex items-center justify-between mb-2 px-2">
-            <span 
+            <span
               className="font-semibold flex items-center gap-2"
               style={{ color: `var(--sidebar-text-primary)` }}
             >
               <div className="w-3 h-3 bg-white rounded-full"></div>
               White Captured
             </span>
-            <span 
+            <span
               className="text-sm font-bold px-2 py-1 rounded"
               style={{
                 color: `var(--accent-primary-light)`,
@@ -58,7 +58,7 @@ const CapturedPieces = ({ capturedPieces }) => {
               {getTotalValue(capturedPieces.white)} pts
             </span>
           </div>
-          <div 
+          <div
             className="flex flex-wrap gap-2 min-h-[50px] max-h-32 overflow-y-auto p-3 rounded-lg border custom-scrollbar"
             style={{
               backgroundColor: `rgba(15, 23, 42, 0.5)`,
@@ -66,7 +66,7 @@ const CapturedPieces = ({ capturedPieces }) => {
             }}
           >
             {capturedPieces.white.length === 0 ? (
-              <span 
+              <span
                 className="text-sm italic w-full text-center"
                 style={{ color: `var(--sidebar-text-muted)` }}
               >
@@ -92,14 +92,14 @@ const CapturedPieces = ({ capturedPieces }) => {
         {/* Black Captured Pieces */}
         <div>
           <div className="flex items-center justify-between mb-2 px-2">
-            <span 
+            <span
               className="font-semibold flex items-center gap-2"
               style={{ color: `var(--sidebar-text-secondary)` }}
             >
               <div className="w-3 h-3 bg-slate-900 rounded-full border border-slate-600"></div>
               Black Captured
             </span>
-            <span 
+            <span
               className="text-sm font-bold px-2 py-1 rounded"
               style={{
                 color: `var(--accent-primary-light)`,
@@ -109,7 +109,7 @@ const CapturedPieces = ({ capturedPieces }) => {
               {getTotalValue(capturedPieces.black)} pts
             </span>
           </div>
-          <div 
+          <div
             className="flex flex-wrap gap-2 min-h-[50px] max-h-32 overflow-y-auto p-3 rounded-lg border custom-scrollbar"
             style={{
               backgroundColor: `rgba(15, 23, 42, 0.5)`,
@@ -117,7 +117,7 @@ const CapturedPieces = ({ capturedPieces }) => {
             }}
           >
             {capturedPieces.black.length === 0 ? (
-              <span 
+              <span
                 className="text-sm italic w-full text-center"
                 style={{ color: `var(--sidebar-text-muted)` }}
               >

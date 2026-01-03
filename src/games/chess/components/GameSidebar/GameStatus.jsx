@@ -14,14 +14,14 @@ const GameStatus = ({
   blackTime,
 }) => {
   return (
-    <div 
+    <div
       className="chess-card rounded-xl p-4 shadow-lg border"
       style={{
         background: `var(--card-bg)`,
         borderColor: `var(--card-border)`,
       }}
     >
-      <h3 
+      <h3
         className="text-xl font-bold mb-4 text-center"
         style={{ color: `var(--accent-primary)` }}
       >
@@ -29,7 +29,7 @@ const GameStatus = ({
       </h3>
 
       {/* Current Turn */}
-      <div 
+      <div
         className="mb-3 p-3 rounded-lg border"
         style={{
           backgroundColor: `rgba(51, 65, 85, 0.5)`,
@@ -37,13 +37,18 @@ const GameStatus = ({
         }}
       >
         <div className="flex items-center justify-between">
-          <span style={{ color: `var(--sidebar-text-secondary)` }} className="font-semibold">
+          <span
+            style={{ color: `var(--sidebar-text-secondary)` }}
+            className="font-semibold"
+          >
             Current Turn:
           </span>
           <div className="flex items-center gap-2">
             <div
               className={`w-4 h-4 rounded-full transition-all ${
-                isWhiteTurn ? "bg-white shadow-lg shadow-white/50" : "bg-slate-500"
+                isWhiteTurn
+                  ? "bg-white shadow-lg shadow-white/50"
+                  : "bg-slate-500"
               }`}
             ></div>
             <span
@@ -65,9 +70,15 @@ const GameStatus = ({
               isWhiteTurn ? "border-2" : "border"
             }`}
             style={{
-              background: isWhiteTurn ? `var(--btn-primary)` : `rgba(51, 65, 85, 0.5)`,
-              borderColor: isWhiteTurn ? `var(--accent-primary-light)` : `var(--card-border)`,
-              boxShadow: isWhiteTurn ? `0 10px 15px -3px var(--selected-square-shadow)` : 'none',
+              background: isWhiteTurn
+                ? `var(--btn-primary)`
+                : `rgba(51, 65, 85, 0.5)`,
+              borderColor: isWhiteTurn
+                ? `var(--accent-primary-light)`
+                : `var(--card-border)`,
+              boxShadow: isWhiteTurn
+                ? `0 10px 15px -3px var(--selected-square-shadow)`
+                : "none",
             }}
           >
             <div className="flex items-center gap-2">
@@ -83,18 +94,30 @@ const GameStatus = ({
               !isWhiteTurn ? "border-2" : "border"
             }`}
             style={{
-              background: !isWhiteTurn ? `var(--btn-primary)` : `rgba(51, 65, 85, 0.5)`,
-              borderColor: !isWhiteTurn ? `var(--accent-primary-light)` : `var(--card-border)`,
-              boxShadow: !isWhiteTurn ? `0 10px 15px -3px var(--selected-square-shadow)` : 'none',
+              background: !isWhiteTurn
+                ? `var(--btn-primary)`
+                : `rgba(51, 65, 85, 0.5)`,
+              borderColor: !isWhiteTurn
+                ? `var(--accent-primary-light)`
+                : `var(--card-border)`,
+              boxShadow: !isWhiteTurn
+                ? `0 10px 15px -3px var(--selected-square-shadow)`
+                : "none",
             }}
           >
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-slate-900 rounded-full border border-slate-600"></div>
-              <span style={{ color: `var(--sidebar-text-secondary)` }} className="font-semibold">
+              <span
+                style={{ color: `var(--sidebar-text-secondary)` }}
+                className="font-semibold"
+              >
                 Black
               </span>
             </div>
-            <span style={{ color: `var(--sidebar-text-secondary)` }} className="font-mono font-bold text-lg">
+            <span
+              style={{ color: `var(--sidebar-text-secondary)` }}
+              className="font-mono font-bold text-lg"
+            >
               {blackTime || "10:00"}
             </span>
           </div>
@@ -104,7 +127,7 @@ const GameStatus = ({
       {/* Status Messages */}
       <div className="space-y-2">
         {isCheckMate && (
-          <div 
+          <div
             className="text-white px-4 py-3 rounded-lg font-bold text-center animate-pulse shadow-lg border-2"
             style={{
               background: `var(--status-checkmate)`,
@@ -124,7 +147,7 @@ const GameStatus = ({
         )}
 
         {isStalemate && !isCheckMate && (
-          <div 
+          <div
             className="text-white px-4 py-3 rounded-lg font-bold text-center shadow-lg border-2"
             style={{
               background: `var(--status-stalemate)`,
@@ -139,7 +162,7 @@ const GameStatus = ({
         )}
 
         {isInCheck && !isCheckMate && !isStalemate && (
-          <div 
+          <div
             className="text-white px-4 py-3 rounded-lg font-bold text-center shadow-lg border-2 animate-pulse"
             style={{
               background: `var(--status-check)`,
@@ -156,7 +179,7 @@ const GameStatus = ({
         )}
 
         {!isInCheck && !isCheckMate && !isStalemate && (
-          <div 
+          <div
             className="text-white px-4 py-3 rounded-lg text-center shadow-lg border-2"
             style={{
               background: `var(--status-progress)`,
