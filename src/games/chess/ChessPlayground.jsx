@@ -199,19 +199,41 @@ const ChessPlayground = () => {
         {/* Game Over Overlay */}
         {(isCheckMate || isStalemate) && (
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 rounded-lg">
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white px-10 py-8 rounded-2xl shadow-2xl text-center border-2 border-gray-700 animate-scaleIn max-w-md mx-4">
+            <div
+              className="text-white px-10 py-8 rounded-2xl shadow-2xl text-center border-2 animate-scaleIn max-w-md mx-4"
+              style={{
+                background: `var(--card-bg)`,
+                borderColor: `var(--card-border)`,
+              }}
+            >
               <div className="text-6xl mb-4 animate-bounce">🏆</div>
-              <div className="text-3xl font-bold mb-2 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+              <div
+                className="text-3xl font-bold mb-2"
+                style={{
+                  background: isCheckMate
+                    ? `var(--status-checkmate)`
+                    : `var(--status-stalemate)`,
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
                 {isCheckMate
                   ? isWhiteTurn
                     ? "Black Wins!"
                     : "White Wins!"
                   : "Stalemate!"}
               </div>
-              <div className="text-xl mt-2 text-gray-300">
+              <div
+                className="text-xl mt-2"
+                style={{ color: `var(--sidebar-text-secondary)` }}
+              >
                 {isCheckMate ? "Checkmate!" : "Draw!"}
               </div>
-              <div className="text-sm mt-4 text-gray-400">
+              <div
+                className="text-sm mt-4"
+                style={{ color: `var(--sidebar-text-muted)` }}
+              >
                 {isCheckMate
                   ? "No further moves allowed"
                   : "No legal moves available"}

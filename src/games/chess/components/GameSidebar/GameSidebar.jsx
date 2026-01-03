@@ -7,11 +7,7 @@ import GameStatus from "./GameStatus";
 /**
  * Game Sidebar Component
  *
- * Enhanced with:
- * - Modern gradient backgrounds
- * - Better spacing and layout
- * - Elegant card-based design
- * - Smooth scrolling
+ * Uses CSS variables from theme for easy customization
  */
 const GameSidebar = ({
   moveHistory,
@@ -29,7 +25,13 @@ const GameSidebar = ({
   onNewGame,
 }) => {
   return (
-    <div className="w-full bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white rounded-2xl shadow-2xl p-4 space-y-4 border border-gray-700">
+    <div
+      className="chess-sidebar w-full text-white rounded-2xl shadow-2xl p-4 space-y-4 border"
+      style={{
+        background: `var(--sidebar-bg)`,
+        borderColor: `var(--sidebar-border)`,
+      }}
+    >
       {/* Game Status */}
       <div className="flex-shrink-0">
         <GameStatus
