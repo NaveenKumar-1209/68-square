@@ -17,6 +17,7 @@ export const Board = ({
   selectedSquare = null,
   highlightedSquares = [],
   suggestedMoves = [],
+  kingInCheckSquare = null,
 }) => {
   /**
    * Determine if a square is light colored
@@ -28,15 +29,16 @@ export const Board = ({
 
   return (
     <div className="w-full h-full mx-auto p-4">
-      <div className="bg-amber-900 p-2 rounded-lg shadow-2xl">
+      <div className="bg-amber-900 p-2 rounded-lg shadow-2xl h-full w-full">
         {/* Board grid container */}
-        <div className="grid grid-cols-8 aspect-square">
+        <div className="grid grid-cols-8 aspect-square h-full w-full">
           {position.map((rank, rankIndex) =>
             rank.map((piece, fileIndex) => {
               const squareId = getSquareId(rankIndex, fileIndex);
               const isLight = isLightSquare(rankIndex, fileIndex);
               const isSelected = selectedSquare === squareId;
               const isHighlighted = highlightedSquares.includes(squareId);
+              const isKingInCheck = kingInCheckSquare === squareId;
 
               return (
                 <Square
@@ -48,6 +50,7 @@ export const Board = ({
                   isSelected={isSelected}
                   isHighlighted={isHighlighted}
                   suggestedMoves={suggestedMoves}
+                  isKingInCheck={isKingInCheck}
                 />
               );
             })

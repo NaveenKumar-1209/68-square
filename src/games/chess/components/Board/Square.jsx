@@ -20,6 +20,7 @@ export const Square = ({
   isSelected = false,
   isHighlighted = false,
   suggestedMoves = [],
+  isKingInCheck = false,
 }) => {
   const baseClasses = `
     w-full h-full
@@ -39,14 +40,18 @@ export const Square = ({
     ? "bg-yellow-300 bg-opacity-50"
     : "";
 
+  const checkClasses = isKingInCheck
+    ? "bg-red-500 bg-opacity-70 ring-4 ring-red-600 ring-inset animate-pulse"
+    : "";
+
   return (
     <div
-      className={`${baseClasses} ${selectedClasses} ${highlightedClasses} ${suggestedClasses}`}
+      className={`${baseClasses} ${selectedClasses} ${highlightedClasses} ${suggestedClasses} ${checkClasses}`}
       onClick={() => onSquareClick?.(squareId)}
       role="gridcell"
       aria-label={`Square ${squareId}${
         piece ? ` with ${piece.color} ${piece.type}` : " empty"
-      }`}
+      }${isKingInCheck ? " - King in Check!" : ""}`}
     >
       <Piece piece={piece} />
       {/* Square coordinates label (for debugging/accessibility) */}

@@ -29,10 +29,12 @@ const GameStatus = ({ isWhiteTurn, isInCheck, isCheckMate, isStalemate }) => {
       {/* Status Messages */}
       <div className="space-y-2">
         {isCheckMate && (
-          <div className="bg-red-600 text-white px-3 py-2 rounded font-bold text-center">
+          <div className="bg-red-600 text-white px-3 py-2 rounded font-bold text-center animate-pulse">
+            🏆{" "}
             {isWhiteTurn
               ? "Black Wins - Checkmate!"
-              : "White Wins - Checkmate!"}
+              : "White Wins - Checkmate!"}{" "}
+            🏆
           </div>
         )}
 
